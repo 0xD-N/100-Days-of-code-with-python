@@ -22,7 +22,7 @@ This comprehensive course covers a massive amount of tools and technologies, inc
 
 - Request
 
--WTForms
+- WTForms
 
 - Data Science
 
