@@ -16,4 +16,7 @@ totalWithTip = billTotal + tip
 costPerPerson = totalWithTip / splitAmount
 
 #outputting result
+
+#round is a built in function that rounds a number to a given precision
+
 print(f"\nEach person should pay ${round(costPerPerson, 2)}")
