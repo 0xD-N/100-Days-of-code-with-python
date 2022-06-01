@@ -1,5 +1,6 @@
 from os import system
 import random
+import time
 
 
 stages = ['''
@@ -72,6 +73,8 @@ secretWord = random.choice(wordBank)
 
 secretWordPlaceholder = ["_" for _ in range(len(secretWord))]
 
+letterGuesses = []
+
 stage = 0
 
 print("""
@@ -94,7 +97,10 @@ while "_" in secretWordPlaceholder and stage != 6:
     
     guess = input("\nEnter guess: ").lower()
     
-    if guess in secretWord:
+    if guess in letterGuesses:
+        print(f"\nYou already guessed {guess}")
+    
+    elif guess in secretWord:
         
         for index in range(len(secretWord)):
             if secretWord[index] == guess:
@@ -102,6 +108,10 @@ while "_" in secretWordPlaceholder and stage != 6:
     
     else:
         stage += 1
+    
+    letterGuesses.append(guess)
+    
+    time.sleep(0.5)
     
     system("cls")
 
@@ -130,5 +140,5 @@ else:
                     __/ |                      
                    |___/                       """)
     
-    print("\nYou lose!")
+    print(f"\nYou lose! The word was {secretWord}")
     
