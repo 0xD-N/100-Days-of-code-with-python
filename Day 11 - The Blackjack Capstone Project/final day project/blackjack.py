@@ -31,18 +31,23 @@ choice = input("\nDo you want to play a game of blackjack? Type 'y' or 'n': ").l
 
 if choice == "y":
     
+    #clear terminal screen and print logo
     os.system("cls")
     print(f"\n{logo}")
     
+    # store user hands and total in a dictionary
     user_hand["cards"].append(deck[random.randint(0, len(deck) - 1)])
     user_hand["cards"].append(deck[random.randint(0, len(deck) - 1)])
     
     user_hand["total"] = sum(user_hand["cards"])
     
+    #start of computer hand
     computer_hand["cards"].append(random.randint(0, len(deck) - 1))
     computer_hand["cards"].append(random.randint(0, len(deck) - 1))
     
     computer_hand["total"] = sum(computer_hand["cards"])
+    #end of user hand
+    
     
     print(f"\nYour cards: {user_hand['cards']}")
     
@@ -52,6 +57,7 @@ if choice == "y":
     
     if choice == 'y':
         
+        # repeat until the user breaks or choses to stand
         while choice == "y" and user_hand["total"] < 21:
             
             user_hand["cards"].append(deck[random.randint(0, len(deck) - 1)])
@@ -65,7 +71,7 @@ if choice == "y":
             
             choice = input("\nType 'y' to hit or type 'n' to stand: ")
     
-    
+    #random number for whether the computer should draw a card or not. 1 means yes, 0 means no.
     shouldHit = random.randint(0,1)
     
     if shouldHit == 1 and user_hand["total"] < 21:
@@ -90,10 +96,8 @@ if choice == "y":
     else:
         print("\nYou lose!")
         
-        
-        
-        
+
 else:
-    
+
     print("\nGoodbye.")
 
