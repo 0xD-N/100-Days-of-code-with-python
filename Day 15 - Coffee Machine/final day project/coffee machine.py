@@ -31,6 +31,12 @@ MENU = {
     }
 }
 
+change = {
+    "quarter" : 0.25,
+    "dime" : 0.10,
+    "nickel": 0.05,
+    "penny": 0.01
+}
 # 1: print report of coffee machine
 def printReport():
     
@@ -57,7 +63,27 @@ def sufficient_resources(option):
     if sufficient == False:
         print(f"\nInsufficient resources to make {option}. Missing resoures: {', '.join(insufficient_resouces)}")
     return sufficient
+
+def transaction_success(option, quarters, dimes, nickels, pennies):
     
+    total = (change["quarter"] * quarters) + (change["dime"] * dimes) + (change["nickel"] * nickels) + (change["penny"] * pennies)
+    
+    if total > MENU[option]["cost"]:
+        print(f"\nHere's ${round(total - MENU[option]['cost'], 2)} dollars in change.")
+        return True
+    elif total == MENU[option]["cost"]:
+        return True
+    else:
+        return False
+    
+
+def deduct_ingredients(option):
+    
+    for ingredient, quantity in MENU[option]["ingredients"].items():
+        
+        coffee_machine[ingredient][0] -= quantity
+        
+
 user_input = ""
 
 # 2: turn off coffee machine by inputting off
@@ -69,10 +95,34 @@ while user_input != "off":
     if user_input == "report":
         printReport()
     elif user_input == "refill":
-        pass
+        coffee_machine["water"][0] = 300
+        coffee_machine["milk"][0] = 200
+        coffee_machine["coffee"][0] = 100
+        
+        print("\nCoffee machine restocked!")
     elif user_input in MENU:
         
         # 4: Check if resources are sufficient 
         if sufficient_resources(user_input):
             
-            pass
+            # 5: Process coins
+            print("\nPlease insert coins")
+            
+            quarters = int(input("\nHow many quarters?: "))
+            
+            dimes = int(input("\nHow many dimes?: "))
+            
+            nickels = int(input("\nHow many nickels?: "))
+            
+            pennies = int(input("\nHow many pennies?: "))
+            
+            # 6: Check if transaction successful
+            if transaction_success(user_input, quarters,dimes,nickels,pennies):
+                coffee_machine["cash"] += MENU[user_input]["cost"]
+                
+                deduct_ingredients(user_input)
+                
+                print(f"\nHere's your {user_input}. Enjoy!")
+            else:
+                print("\nSorry that's not enough money. Money refunded.")
+                
