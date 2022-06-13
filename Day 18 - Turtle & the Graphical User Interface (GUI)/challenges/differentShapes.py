@@ -1,3 +1,4 @@
+import random
 from turtle import Turtle, Screen
 
 t = Turtle()
@@ -15,9 +16,13 @@ shapes = {
     "decagon": 10,
 }
 
+colors = ["orange", "red", "aquamarine4", "gray", "wheat", "medium spring green", "magenta", "black", "blue"]
+
 def drawShape(sides, length):
     
     angle = 360/sides
+    
+    t.color(random.choice(colors))
     
     for _ in range(sides):
         t.forward(length)
