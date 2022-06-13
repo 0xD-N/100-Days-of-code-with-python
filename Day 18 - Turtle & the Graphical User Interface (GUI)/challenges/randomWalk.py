@@ -13,9 +13,17 @@ t.speed(10)
 
 angles = [90, 180, 270, 0]
 
+def randColor():
+    
+    r = int(1 + random.random() * 255)
+    g = int(1 + random.random() * 255)
+    b = int(1 + random.random() * 255)
+    
+    return (r,g,b)
+
 def randomPath(angle, length):
     
-    t.pencolor(int(1 + random.random() * 255), int(1 + random.random() * 255), int(1 + random.random() * 255))
+    t.pencolor(randColor())
     t.setheading(angle)
     t.forward(length)
     
