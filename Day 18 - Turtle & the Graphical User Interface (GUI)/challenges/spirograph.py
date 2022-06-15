@@ -2,15 +2,14 @@ import random
 from turtle import Turtle, Screen
 
 t = Turtle()
-t.shape("turtle")
+t.shape("arrow")
 t.color("aquamarine4")
 s = Screen()
 s.colormode(255)
 
-t.pensize(15)
-t.speed(10)
 
-angles = [90, 180, 270, 0]
+t.speed(0)
+
 
 def randColor():
     
@@ -20,16 +19,19 @@ def randColor():
     
     return (r,g,b)
 
-def randomPath(angle, length):
+# the range should be 360 divided by the difference in angles between each circle
+for _ in range(60):
     
     t.pencolor(randColor())
-    t.setheading(angle)
-    t.forward(length)
-    
+    t.circle(100, 360)
+    t.setheading(t.heading() - 6)
 
-for _ in range(200):
-    
-    randomPath(random.choice(angles), 25)
+
+
+
+
+
+
 
 
 s.exitonclick()
