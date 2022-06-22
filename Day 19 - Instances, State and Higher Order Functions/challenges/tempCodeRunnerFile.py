@@ -1,2 +1,0 @@
-
-#generates copies of turtle
