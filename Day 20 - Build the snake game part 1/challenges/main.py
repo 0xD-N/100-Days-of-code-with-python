@@ -1,6 +1,7 @@
 import time
-from turtle import Screen, Turtle
+from turtle import Screen
 from snake import Snake
+from food import Food
 
 # Screen implementation
 screen = Screen()
@@ -13,15 +14,25 @@ screen.listen()
 
 # snake implementation
 s = Snake()
+f = Food()
 
+screen.onkeypress(s.forward, "w")
 screen.onkeypress(s.angleLeft, "a")
+screen.onkeypress(s.backward, "s")
 screen.onkeypress(s.angleRight, "d")
+
 
 # game main loop
 game_is_on = True
 
 while game_is_on:
+
     screen.update()
-    time.sleep(0.1)
+    
     s.move()
+
+    if s.head.distance(f.position()) < 15:
+        f.refresh()
+    
+    time.sleep(0.1)
 
