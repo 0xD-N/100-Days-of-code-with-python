@@ -1,4 +1,12 @@
 from turtle import Turtle
+import random
+
+def get_color():
+    r = random.randint(0, 255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
+    
+    return (r,g,b)
 
 class Snake():
     
@@ -15,7 +23,7 @@ class Snake():
         t = Turtle()
         t.penup()
         t.shape("square")
-        t.speed(1)
+        t.speed(0)
         t.color("white")
         
         
@@ -28,7 +36,15 @@ class Snake():
             x, y = self.turtles[i-1].position()
             self.turtles[i].setposition(x - 20, y)
             
-    
+        for turtle in self.turtles:
+            turtle.color(get_color())
+      
+    def extend(self):
+        """Extends snake body"""
+        c = self.head.clone()
+        c.color(get_color())
+        self.turtles.append(c)
+          
     def move(self):
         """moves the snake object forward by 20 paces"""
         for i in range(len(self.turtles) -1, 0, -1):
@@ -36,22 +52,22 @@ class Snake():
         
         self.head.forward(20)
         
-
-    def forward(self):
-        
+    def up(self):
+        """Turns the heading of the snake 90 degrees"""
         if self.head.heading() != 270 and self.head.heading() != -90:
             self.head.setheading(90)
             
-    def backward(self):
+    def down(self):
+        """Turns the heading of the snake 270 degrees"""
         if self.head.heading() != 90 and self.head.heading() != -270:
             self.head.setheading(270)
             
-    def angleLeft(self):
-        """Turns the heading of the snake 90 degrees"""
+    def left(self):
+        """Turns the heading of the snake 180 degrees"""
         if self.head.heading() != 0:
             self.head.setheading(180)
         
-    def angleRight(self):
-        """Turns the heading of the snake negative 90 degrees"""
+    def right(self):
+        """Turns the heading of the snake 0 degrees"""
         if self.head.heading() != 180 and self.head.heading() != -180:
             self.head.setheading(0)

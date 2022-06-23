@@ -2,24 +2,25 @@ import time
 from turtle import Screen
 from snake import Snake
 from food import Food
-
+from scoreboard import Scoreboard
 # Screen implementation
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width=620, height=620)
 screen.colormode(255)
 screen.title("Snake game")
 screen.bgcolor("black")
 screen.tracer(0)
 screen.listen()
 
-# snake implementation
+# snake, food, and Scoreboard implementation
 s = Snake()
 f = Food()
+score = Scoreboard()
 
-screen.onkeypress(s.forward, "w")
-screen.onkeypress(s.angleLeft, "a")
-screen.onkeypress(s.backward, "s")
-screen.onkeypress(s.angleRight, "d")
+screen.onkeypress(s.up, "w")
+screen.onkeypress(s.left, "a")
+screen.onkeypress(s.down, "s")
+screen.onkeypress(s.right, "d")
 
 
 # game main loop
@@ -30,9 +31,27 @@ while game_is_on:
     screen.update()
     
     s.move()
-
-    if s.head.distance(f.position()) < 15:
-        f.refresh()
     
-    time.sleep(0.1)
+    xPos, yPos = s.head.position()
 
+    # wall collision detection
+    if xPos >= (screen.window_width()/2) or xPos < -(screen.window_width()/2) or yPos >= (screen.window_height()/2) or yPos < -(screen.window_height()/2) + 10:
+        score.game_over()
+        game_is_on = False
+    else:
+        # body collision detection
+        for i in range(1, len(s.turtles)): 
+            if s.head.distance(s.turtles[i].position()) < 10:
+                score.game_over()
+                game_is_on = False
+                break
+    
+    # food collision detection        
+    if s.head.distance(f.position()) < 15:
+        score.incriment_score()
+        s.extend()
+        f.refresh()
+
+    time.sleep(0.05)
+
+screen.exitonclick()
