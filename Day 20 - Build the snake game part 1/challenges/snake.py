@@ -37,10 +37,21 @@ class Snake():
         self.head.forward(20)
         
 
+    def forward(self):
+        
+        if self.head.heading() != 270 and self.head.heading() != -90:
+            self.head.setheading(90)
+            
+    def backward(self):
+        if self.head.heading() != 90 and self.head.heading() != -270:
+            self.head.setheading(270)
+            
     def angleLeft(self):
         """Turns the heading of the snake 90 degrees"""
-        self.head.setheading(self.head.heading() + 90)
+        if self.head.heading() != 0:
+            self.head.setheading(180)
         
     def angleRight(self):
         """Turns the heading of the snake negative 90 degrees"""
-        self.head.setheading(self.head.heading() - 90)
+        if self.head.heading() != 180 and self.head.heading() != -180:
+            self.head.setheading(0)
